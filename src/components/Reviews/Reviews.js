@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchReviews } from "services/api";
+import { Item, List, Author } from './Reviews.styled';
+
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -31,16 +33,16 @@ const Reviews = () => {
     <>
       {error && <p>Something went wrong please reload the page!</p>}
       {isLoading && <p>Loading...</p>}
-      <ul>
+      <List>
         {reviews.map(({ author, content, id }) => {
           return (
-            <li key={id}>
-              <p>{author}</p>
+            <Item key={id}>
+              <Author>{author}</Author>
               <p>{content}</p>
-            </li>
+            </Item>
           );
         })}
-      </ul>
+      </List>
     </>
   );
 };

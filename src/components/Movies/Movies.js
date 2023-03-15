@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchSearch } from "services/api";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { List, Item  } from './Movies.styled';
 
 const Movies = () => {
   const [inputValue, setInputValue] = useState("");
@@ -66,15 +67,15 @@ const Movies = () => {
           There is not any movie for this request. Please, change the query!
         </p>
       )}
-      <ul>
+      <List>
         {movies.map(({ id, title }) => (
-          <li key={id}>
+          <Item key={id}>
             <Link to={`${id}`} state={{ from: location }}>
               {title}
             </Link>
-          </li>
+          </Item>
         ))}
-      </ul>
+      </List>
     </>
   );
 };

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 import { fetchDetails } from "services/api";
+import imageNotFound from "../images/imageNotFound.webp"
+import { MovieCard, MovieInfo, DetailsLink, GoBack, AdditionalTitle, DetailsLinkWrap } from './MovieDetails.styled';
+
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -34,24 +37,35 @@ const MovieDetails = () => {
       release_date
     } = movie;
 
-    const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
+    const imageUrl = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : imageNotFound;
 
     return (
       <>
-        <Link to={location.state?.from ?? "/"}>Go Back</Link>
+     
+        <GoBack to={location.state?.from ?? "/"}>Go Back</GoBack> 
+        <MovieCard>
         <img src={imageUrl} alt={title} />
+        <MovieInfo>
         <h2>
           {title} {release_date && release_date.slice(0, 4)}
         </h2>
-        <p>Vote average: {vote_average}</p>
-        <p>Overview: {overview}</p>
+        <b>Vote average:</b>
+        <p>{vote_average}</p>
+        <b>Overview:</b>
+        <p>{overview}</p>
+        <b>Genres:</b>
         <p>
-          Genres:
+          
           {genres.length !== 0 && genres.map((genre) => genre.name).join(" ")}
         </p>
-        <p>Additional information</p>
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">Reviews</Link>
+        </MovieInfo>
+        </MovieCard>
+
+        <AdditionalTitle>Additional information</AdditionalTitle>
+        <DetailsLinkWrap>
+        <DetailsLink to="cast">Cast</DetailsLink>
+        <DetailsLink to="reviews">Reviews</DetailsLink>
+        </DetailsLinkWrap>
         <Outlet />
       </>
     );

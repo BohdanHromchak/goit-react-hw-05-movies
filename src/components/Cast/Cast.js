@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchCast } from "services/api";
+import imageNotFound from "../images/imageNotFound.webp"
+import { List, Item, Name} from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -31,18 +33,19 @@ const Cast = () => {
     <>
       {error && <p>Something went wrong please reload the page!</p>}
       {isLoading && <p>Loading...</p>}
-      <ul>
+      <List>
         {cast.map(({ id, name, profile_path, character }) => {
-          const imageUrl = `https://image.tmdb.org/t/p/w500${profile_path}`;
+          const imageUrl = profile_path ? `https://image.tmdb.org/t/p/w500${profile_path}` : imageNotFound;
+          
           return (
-            <li key={id}>
+            <Item key={id}>
               <img src={imageUrl} alt={name} />
-              <p>{name}</p>
-              <p>{character}</p>
-            </li>
+              <Name>{name}</Name>
+              <p>Character: {character}</p>
+            </Item>
           );
         })}
-      </ul>
+      </List>
     </>
   );
 };
