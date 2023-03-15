@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation, Link, Outlet } from "react-router-dom";
+import { useParams, useLocation, Outlet } from "react-router-dom";
 import { fetchDetails } from "services/api";
 import imageNotFound from "../images/imageNotFound.webp"
 import { MovieCard, MovieInfo, DetailsLink, GoBack, AdditionalTitle, DetailsLinkWrap } from './MovieDetails.styled';
@@ -42,7 +42,7 @@ const MovieDetails = () => {
     return (
       <>
      
-        <GoBack to={location.state?.from ?? "/"}>Go Back</GoBack> 
+        <GoBack to={location.state?.from || "/"}>Go Back</GoBack> 
         <MovieCard>
         <img src={imageUrl} alt={title} />
         <MovieInfo>
@@ -63,16 +63,17 @@ const MovieDetails = () => {
 
         <AdditionalTitle>Additional information</AdditionalTitle>
         <DetailsLinkWrap>
-        <DetailsLink to="cast">Cast</DetailsLink>
+        <DetailsLink to="cast" >Cast</DetailsLink>
         <DetailsLink to="reviews">Reviews</DetailsLink>
         </DetailsLinkWrap>
         <Outlet />
       </>
     );
   }
+
   return (
     <>
-      <Link to={location.state?.from ?? "/"}>Go Back</Link>
+        <GoBack to={location.state?.from || "/"}>Go Back</GoBack> 
       {error && <p>Something went wrong please reload the page!</p>}
       {isLoading && <p>Loading...</p>}
     </>

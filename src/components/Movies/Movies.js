@@ -34,7 +34,7 @@ const Movies = () => {
         setIsLoading(true);
         const movieDetails = await fetchSearch(movieName);
         setMovies(movieDetails.results);
-        console.log(movieDetails.results.length);
+    
         if (movieName !== "" && movieDetails.results.length === 0) {
           setNotFound(true);
         }
