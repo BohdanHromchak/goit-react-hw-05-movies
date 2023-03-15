@@ -1,4 +1,4 @@
-// TRENDINGS
+// Home (trendings)
 export async function fetchTrending() {
   const response = await fetch(
     `
@@ -8,7 +8,17 @@ export async function fetchTrending() {
   return trending;
 }
 
-// SEARCH
+// MovieDetails (search by id)
+export async function fetchDetails(movieId) {
+  const response = await fetch(
+    `
+    https://api.themoviedb.org/3/movie/${movieId}?api_key=9736a35e31abd19d6144591c8e77ccff&language=en-US`
+  );
+  const details = await response.json();
+  return details;
+}
+
+// Movies (search by name)
 export async function fetchSearch(movieName) {
   const response = await fetch(
     `
@@ -18,17 +28,17 @@ export async function fetchSearch(movieName) {
   return searchQuery;
 }
 
-// CREDITS
-export async function fetchCredits(id) {
+// Cast
+export async function fetchCast(id) {
   const response = await fetch(
     `    
-https://api.themoviedb.org/3/movie/${id}/credits?api_key=9736a35e31abd19d6144591c8e77ccff&language=en-US`
+    https://api.themoviedb.org/3/movie/${id}/credits?api_key=9736a35e31abd19d6144591c8e77ccff&language=en-US`
   );
-  const credits = await response.json();
-  return credits;
+  const cast = await response.json();
+  return cast;
 }
 
-//REVIEWS
+// Reviews
 export async function fetchReviews(id) {
   const response = await fetch(
     `    

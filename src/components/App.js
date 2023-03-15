@@ -1,29 +1,23 @@
-import { Route, Routes, NavLink } from 'react-router-dom';
-import Home from './Home/Home';
-import Movies from './Movies/Movies';
-import { fetchTrending } from 'services/api';
-import { useEffect, useState } from 'react';
+import { Route, Routes } from "react-router-dom";
+import Cast from "./Cast/Cast";
+import Home from "./Home/Home";
+import MovieDetails from "./MovieDetails/MovieDetails";
+import Movies from "./Movies/Movies";
+import Reviews from "./Reviews/Reviews";
+import SharedLayout from "./SharedLayout/SharedLayout";
 
 const App = () => {
-  const [trendingFilms, setTrendingFilms] = useState([]);
-
-  useEffect(() => {
-    fetchTrending().then(trending => {
-      setTrendingFilms(trending.results);
-    });
-  }, []);
-
   return (
-    <div>
-      <NavLink to="/" end>
-        Home
-      </NavLink>
-      <NavLink to="/movies">Movies</NavLink>
-      <Routes>
-        <Route path="/" element={<Home trendingFilms={trendingFilms} />} />
-        <Route path="/movies" element={<Movies />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
+        <Route path="movies" element={<Movies />} />
+        <Route path="movies/:movieId" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 export default App;
