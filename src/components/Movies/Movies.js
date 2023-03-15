@@ -58,7 +58,7 @@ const Movies = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <button type="submit" style={{cursor: "pointer"}}>Search</button>
       </form>
       {error && <p>Something went wrong please reload the page!</p>}
       {isLoading && <p>Loading...</p>}
