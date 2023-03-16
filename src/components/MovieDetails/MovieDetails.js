@@ -63,8 +63,8 @@ const MovieDetails = () => {
 
         <AdditionalTitle>Additional information</AdditionalTitle>
         <DetailsLinkWrap>
-        <DetailsLink to="cast" state={{ from: location }}>Cast</DetailsLink>
-        <DetailsLink to="reviews" state={{ from: location }}>Reviews</DetailsLink>
+        <DetailsLink to="cast" state={location.state}>Cast</DetailsLink>
+        <DetailsLink to="reviews" state={location.state}>Reviews</DetailsLink>
         </DetailsLinkWrap>
         <Outlet />
       </>
